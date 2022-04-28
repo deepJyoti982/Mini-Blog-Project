@@ -67,14 +67,12 @@ let deleteBlogByBlogId = async function (req, res) {
 
 let deleteBlogByParam = async function (req, res) {
     let criteria = req.query
-    let blog = await blogModel.find({$and:[{isDeleted: false} && {criteria}]})
-    console.log(blog)
-    if (blog.length !== 0) {
-        await blogModel.updateMany(criteria, {$set: {"isDeleted": true}})
-        return res.sendStatus( 200 )
+    let blog = await blogModel.find({isDeleted: false} && criteria)
+    if (blog.length == 0) {
+        return res.status(404).send({ msg: "no such blog" })
     }
-    console.log("hi")
-    res.status(404).send({ msg: "no such blog" })
+    await blogModel.updateMany(criteria, {$set: {"isDeleted": true}})
+    res.sendStatus( 200 )
 
 }
 
