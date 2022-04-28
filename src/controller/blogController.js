@@ -20,7 +20,7 @@ const createBlogs = async function (req, res) {
 const getBlogs = async function (req, res) {
 
     let dataQuery = req.query
-
+    // let a = Object.keys(dataQuery)
     if (Object.keys(dataQuery).length !== 0) {
         
         let findByQuery = await blogModel.find({$and: [{isDeleted: false}, {isPublished: true}] } && dataQuery)
