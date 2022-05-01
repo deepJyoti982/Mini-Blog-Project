@@ -53,7 +53,7 @@ const getBlogs = async function (req, res) {
     let dataQuery = req.query
     if (Object.keys(dataQuery).length !== 0) {
 
-        let findByQuery = await blogModel.find({ $and: [{ isDeleted: false }, { isPublished: true }] } && dataQuery)
+        let findByQuery = await blogModel.find({ $and: [{ isDeleted: false }, { isPublished: true },dataQuery] })
 
         if (findByQuery.length == 0) {
 
@@ -124,7 +124,7 @@ let deleteBlogByBlogId = async function (req, res) {
 
 let deleteBlogByParam = async function (req, res) {
 
-    let token = (req.headers["x-Api-key"] || req.headers["x-Api-key"])
+    let token = (req.headers["x-Api-key"] || req.headers["x-api-key"])
     
     let decodedToken = jwt.verify(token, "functionUp-Uranium")
     let userId = decodedToken.userId
