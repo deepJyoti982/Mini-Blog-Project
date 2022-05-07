@@ -5,7 +5,7 @@ const blogController = require('../controller/blogController')
 const middleWare = require('../middleware/auth')
 
 router.post('/author',authorController.createAuthor)
-router.post('/userLogin', blogController.authorLogin)
+router.post('/userLogin',authorController.authorLogin)
 
 router.post("/createBlog", middleWare.tokenValidator, blogController.createBlogs)
 router.get("/getBlog", middleWare.tokenValidator, blogController.getBlogs)

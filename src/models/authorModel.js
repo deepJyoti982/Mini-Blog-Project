@@ -5,11 +5,13 @@ const authorSchema = new mongoose.Schema({
     fname: {
         type: String,
         required: true,
+        uppercase: true,
         trim: true
     },
     lname: {
         type: String,
         required: true,
+        uppercase: true,
         trim: true
     },
     title: {
@@ -21,7 +23,12 @@ const authorSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
+        validate: {
+            validator: function(email){
+                return /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email)
+            },message:'Please fill a valid email address', isAsync:false
+        }
     },
     password: {
         type: String,
